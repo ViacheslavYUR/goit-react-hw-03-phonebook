@@ -26,11 +26,13 @@ class App extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     console.log(' update');
     const { contacts } = this.state;
     console.log(contacts);
-    localStorage.setItem('contacts', JSON.stringify(contacts));
+    if (prevState.contacts !== contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
   }
   addContact = ({ name, number }) => {
     if (this.isDublicate(name, number)) {
